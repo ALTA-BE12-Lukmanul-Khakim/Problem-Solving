@@ -4,19 +4,20 @@ import "fmt"
 
 func Frog(jumps []int) int {
 	var res int
-	var j, i int
-	var minDistance int = 1000
-	for i = 0; i < len(jumps); i++ {
-		for j = i + 1; j < len(jumps); j++ {
-			if jumps[i] == jumps[j] && j-i < minDistance {
-				minDistance = j - i
-			}
-			if minDistance == 1000 {
-				res = -1
-			} else {
-				res = minDistance
-			}
+	prev := 0
+	prev2 := 0
+	for i := 1; i < len(jumps); i++ {
+		jump2 := 1000
+		jump1 := prev + (jumps[i] - jumps[i-1])
+		if i > 1 {
+			jump2 = prev2 + (jumps[i] - jumps[i-2])
 		}
+		if jump1 > jump2 {
+			res = jump1
+		} else if jump1 < jump2 {
+			res = jump2
+		}
+
 	}
 	return res
 }
